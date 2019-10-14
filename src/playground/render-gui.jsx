@@ -68,7 +68,7 @@ export default appTarget => {
         simulateScratchDesktop ?
             <WrappedGui
                 isScratchDesktop
-                showTelemetryModal
+                showTelemetryModal={false}
                 canSave={false}
                 onTelemetryModalCancel={handleTelemetryModalCancel}
                 onTelemetryModalOptIn={handleTelemetryModalOptIn}

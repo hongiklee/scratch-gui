@@ -46,6 +46,9 @@ import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
+import plrunIconURL from './plrun/plrun.png';
+import plrunInsetIconURL from './plrun/plrun-small.svg';
+
 export default [
     {
         name: (
@@ -317,5 +320,26 @@ export default [
             />
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
+    },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="Coding Plrun"
+                description="Name for the Coding Plrun extension"
+                id="gui.extension.plrun.name"
+            />
+        ),
+        extensionId: 'plrun',
+        collaborator: 'DAEKYO Co, LTD.',
+        iconURL: plrunIconURL,
+        insetIconURL: plrunInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Coding Plrun."
+                description="Description for the 'Coding Plrun' extension"
+                id="gui.extension.plrun.description"
+            />
+        ),
+        featured: true
     }
 ];

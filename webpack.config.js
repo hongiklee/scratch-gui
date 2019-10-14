@@ -29,7 +29,9 @@ const base = {
     },
     externals: {
         React: 'react',
-        ReactDOM: 'react-dom'
+        ReactDOM: 'react-dom',
+        serialport: 'serialport',
+        electron: 'electron'
     },
     resolve: {
         symlinks: false
@@ -124,6 +126,9 @@ module.exports = [
                 }
             ])
         },
+        node: {
+            fs: 'empty'
+        },
         optimization: {
             splitChunks: {
                 chunks: 'all',
@@ -142,7 +147,7 @@ module.exports = [
             new HtmlWebpackPlugin({
                 chunks: ['lib.min', 'gui'],
                 template: 'src/playground/index.ejs',
-                title: 'Scratch 3.0 GUI',
+                title: '스크래치 3.0 for 코딩플런',
                 sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
             }),
             new HtmlWebpackPlugin({
