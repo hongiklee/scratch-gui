@@ -56,7 +56,10 @@ import {
     languageMenuOpen,
     openLoginMenu,
     closeLoginMenu,
-    loginMenuOpen
+    loginMenuOpen,
+    openMachineMenu,
+    closeMachineMenu,
+    machineMenuOpen
 } from '../../reducers/menus';
 
 import collectMetadata from '../../lib/collect-metadata';
@@ -153,6 +156,7 @@ class MenuBar extends React.Component {
             'handleClickShare',
             'handleKeyPress',
             'handleLanguageMouseUp',
+            'handleMachineMouseUp',
             'handleRestoreOption',
             'getSaveToComputerHandler',
             'restoreOptionMessage'
@@ -239,6 +243,19 @@ class MenuBar extends React.Component {
         if (!this.props.languageMenuOpen) {
             this.props.onClickLanguage(e);
         }
+    }
+    handleMachineMouseUp (e) {
+        if (!this.props.machineMenuOpen) {
+            this.props.onClickMachine(e);
+        }
+    }
+    handleClickMachineReconnect () {
+        window.ipcRenderer.send('request-reconnect');
+        closeMachineMenu();
+    }
+    handleClickMachineWriteFirmware () {
+        window.ipcRenderer.send('request-write-firmware');
+        closeMachineMenu();
     }
     restoreOptionMessage (deletedItem) {
         switch (deletedItem) {
@@ -691,6 +708,46 @@ class MenuBar extends React.Component {
                         </React.Fragment>
                     )}
                 </div>
+                <div
+                    id="machineState"
+                    className={classNames(styles.menuBarItem, styles.hoverable, {
+                        [styles.active]: this.props.machineMenuOpen
+                    })}
+                    onMouseUp={this.props.onClickMachine}
+                >
+                    <div
+                        className={classNames(styles.editMenu)}
+                    >
+                        <FormattedMessage
+                            defaultMessage="Machine"
+                            description="Text for machine dropdown menu"
+                            id="gui.menuBar.machine"
+                        />
+                    </div>
+                    <MenuBarMenu
+                        className={classNames(styles.menuBarMenu)}
+                        open={this.props.machineMenuOpen}
+                        place={'left'}
+                        onRequestClose={this.props.onRequestCloseMachine}
+                    >
+                        <MenuSection>
+                            <MenuItem onClick={this.handleClickMachineReconnect}>
+                                <FormattedMessage
+                                    defaultMessage="Reconnect"
+                                    description=""
+                                    id="gui.menuBar.machineReConnect"
+                                />
+                            </MenuItem>
+                            <MenuItem onClick={this.handleClickMachineWriteFirmware}>
+                                <FormattedMessage
+                                    defaultMessage="Write Firmware"
+                                    description=""
+                                    id="gui.menuBar.machineWriteFirmware"
+                                />
+                            </MenuItem>
+                        </MenuSection>
+                    </MenuBarMenu>
+                </div>
             </Box>
         );
     }
@@ -734,6 +791,9 @@ MenuBar.propTypes = {
     onClickRemix: PropTypes.func,
     onClickSave: PropTypes.func,
     onClickSaveAsCopy: PropTypes.func,
+    machineMenuOpen: PropTypes.bool,
+    onClickMachine: PropTypes.func,
+    onRequestCloseMachine: PropTypes.func,
     onLogOut: PropTypes.func,
     onOpenRegistration: PropTypes.func,
     onOpenTipLibrary: PropTypes.func,
@@ -773,6 +833,7 @@ const mapStateToProps = (state, ownProps) => {
         isUpdating: getIsUpdating(loadingState),
         isShowingProject: getIsShowingProject(loadingState),
         languageMenuOpen: languageMenuOpen(state),
+        machineMenuOpen: machineMenuOpen(state),
         locale: state.locales.locale,
         loginMenuOpen: loginMenuOpen(state),
         projectTitle: state.scratchGui.projectTitle,
@@ -801,6 +862,8 @@ const mapDispatchToProps = dispatch => ({
     onClickRemix: () => dispatch(remixProject()),
     onClickSave: () => dispatch(manualUpdateProject()),
     onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
+    onClickMachine: () => dispatch(openMachineMenu()),
+    onRequestCloseMachine: () => dispatch(closeMachineMenu()),
     onSeeCommunity: () => dispatch(setPlayer(true))
 });
 

@@ -53,6 +53,27 @@ export default [
     {
         name: (
             <FormattedMessage
+                defaultMessage="Coding Plrun"
+                description="Name for the Coding Plrun extension"
+                id="gui.extension.plrun.name"
+            />
+        ),
+        extensionId: 'plrun',
+        collaborator: 'HISCOM',
+        iconURL: plrunIconURL,
+        insetIconURL: plrunInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Coding Plrun."
+                description="Description for the 'Coding Plrun' extension"
+                id="gui.extension.plrun.description"
+            />
+        ),
+        featured: true
+    },
+    {
+        name: (
+            <FormattedMessage
                 defaultMessage="Music"
                 description="Name for the 'Music' extension"
                 id="gui.extension.music.name"
@@ -320,26 +341,5 @@ export default [
             />
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
-    },
-    {
-        name: (
-            <FormattedMessage
-                defaultMessage="Coding Plrun"
-                description="Name for the Coding Plrun extension"
-                id="gui.extension.plrun.name"
-            />
-        ),
-        extensionId: 'plrun',
-        collaborator: 'DAEKYO Co, LTD.',
-        iconURL: plrunIconURL,
-        insetIconURL: plrunInsetIconURL,
-        description: (
-            <FormattedMessage
-                defaultMessage="Coding Plrun."
-                description="Description for the 'Coding Plrun' extension"
-                id="gui.extension.plrun.description"
-            />
-        ),
-        featured: true
     }
 ];

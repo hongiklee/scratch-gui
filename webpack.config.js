@@ -30,7 +30,6 @@ const base = {
     externals: {
         React: 'react',
         ReactDOM: 'react-dom',
-        serialport: 'serialport',
         electron: 'electron'
     },
     resolve: {
