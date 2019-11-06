@@ -253,6 +253,10 @@ class MenuBar extends React.Component {
         window.ipcRenderer.send('request-reconnect');
         closeMachineMenu();
     }
+    handleClickMachineDriver () {
+        window.ipcRenderer.send('request-install-driver');
+        closeMachineMenu();
+    }
     handleClickMachineWriteFirmware () {
         window.ipcRenderer.send('request-write-firmware');
         closeMachineMenu();
@@ -328,6 +332,12 @@ class MenuBar extends React.Component {
                 {remixMessage}
             </Button>
         );
+        const machineStateStyle = {
+            'border-radius': '15px',
+            'margin': '10px',
+            'padding': '10px',
+            'height': '30px'
+        };
         return (
             <Box
                 className={classNames(
@@ -710,6 +720,7 @@ class MenuBar extends React.Component {
                 </div>
                 <div
                     id="machineState"
+                    style={machineStateStyle}
                     className={classNames(styles.menuBarItem, styles.hoverable, {
                         [styles.active]: this.props.machineMenuOpen
                     })}
@@ -736,6 +747,13 @@ class MenuBar extends React.Component {
                                     defaultMessage="Reconnect"
                                     description=""
                                     id="gui.menuBar.machineReConnect"
+                                />
+                            </MenuItem>
+                            <MenuItem onClick={this.handleClickMachineDriver}>
+                                <FormattedMessage
+                                    defaultMessage="Install Driver"
+                                    description=""
+                                    id="gui.menuBar.machineInstallDriver"
                                 />
                             </MenuItem>
                             <MenuItem onClick={this.handleClickMachineWriteFirmware}>
